@@ -23,9 +23,11 @@ public class createformcontroller {
     public Button btnregister;
     public Label lblnotmaching1;
     public Label lblnotmaching2;
+    public TextField txtusername;
 
     public void initialize(){
         disbtn(true);
+        visilbl(false);
 
 
 
@@ -38,7 +40,15 @@ public class createformcontroller {
         String idnumber = txtidnumber.getText();
         String password = txtpassword.getText();
         String confirmpassword = txtconfirmpassword.getText();
+        String username = txtusername.getText();
+        // password are matching and data add the  database
         if(password.equals(confirmpassword)){
+
+
+            setpasswordcolor("transparant");
+            visilbl(false);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Register Are Complited", ButtonType.OK);
+            alert.showAndWait();
 
             Parent parent =FXMLLoader.load(this.getClass().getResource("../view/loginigform.fxml"));
             Scene scene = new Scene(parent);
@@ -46,12 +56,24 @@ public class createformcontroller {
             stage.setScene(scene);
             stage.setTitle("Loging");
             stage.centerOnScreen();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Register Are Complited", ButtonType.OK);
-            alert.showAndWait();
+
+
+
         }
         else{
+            setpasswordcolor("red");
+            visilbl(true);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, " Not Matched Password!", ButtonType.OK);
-            alert.showAndWait();
+            Optional<ButtonType> buttonType = alert.showAndWait();
+            if(buttonType.get().equals(ButtonType.OK)){
+                visilbl(false);
+                txtpassword.clear();
+                txtconfirmpassword.clear();
+                txtpassword.requestFocus();
+            }
+
+
+
 
 
 
@@ -86,6 +108,7 @@ public class createformcontroller {
         disbtn(false);
     }
 
+    // disable txt field
     public void disbtn(Boolean x){
 
         btnregister.setDisable(x);
@@ -99,5 +122,16 @@ public class createformcontroller {
 
 
 
+    }
+// visible not matchin labale of password
+    public void visilbl(boolean x){
+
+        lblnotmaching1.setVisible(x);
+        lblnotmaching2.setVisible(x);
+    }
+    public void setpasswordcolor( String n){
+
+        txtconfirmpassword.setStyle("-fx-border-color:"+n);
+        txtpassword.setStyle("-fx-border-color:"+n);
     }
 }
