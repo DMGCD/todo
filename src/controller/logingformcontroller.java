@@ -33,8 +33,20 @@ public class logingformcontroller {
 
     }
 
-    public void btnlogingOnAction(ActionEvent actionEvent) {
+    public void btnlogingOnAction(ActionEvent actionEvent) throws IOException {
+        logintolist();
 
 
+
+
+    }
+    public void logintolist() throws IOException {
+
+        Parent parent =FXMLLoader.load(this.getClass().getResource("../view/listform.fxml"));
+        Scene scene = new Scene(parent);
+        Stage stage = (Stage) root.getScene().getWindow();
+        stage.setTitle("Todo List");
+        stage.setScene(scene);
+        stage.centerOnScreen();
     }
 }

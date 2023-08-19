@@ -118,6 +118,7 @@ public class createformcontroller {
         txtidnumber.setDisable(x);
         txtpassword.setDisable(x);
         txtconfirmpassword.setDisable(x);
+        txtusername.setDisable(x);
 
 
 

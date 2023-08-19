@@ -7,7 +7,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane fx:id="root" prefHeight="580.0" prefWidth="352.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.createformcontroller">
    <children>
       <Label layoutX="80.0" layoutY="8.0" text="Create Form ">
@@ -59,7 +58,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btncancel" layoutX="59.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnCancelOnaction" style="-fx-background-color: black;" text="Cancel" textFill="WHITE">
+      <Button fx:id="btncancel" layoutX="59.0" layoutY="520.0" mnemonicParsing="false" onAction="#btnCancelOnaction" style="-fx-background-color: red;" text="Cancel" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
