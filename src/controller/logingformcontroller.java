@@ -1,5 +1,6 @@
 package controller;
 
+import db.DBconnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class logingformcontroller {
 
@@ -34,8 +36,8 @@ public class logingformcontroller {
     }
 
     public void btnlogingOnAction(ActionEvent actionEvent) throws IOException {
+        // is the  check password and username are correct it canbee navigate  list form
         logintolist();
-
 
 
 

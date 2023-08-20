@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="root" prefHeight="580.0" prefWidth="352.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.createformcontroller">
+<AnchorPane fx:id="root" prefHeight="582.0" prefWidth="385.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.createformcontroller">
    <children>
       <Label layoutX="80.0" layoutY="8.0" text="Create Form ">
          <font>
@@ -34,12 +35,18 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label layoutX="54.0" layoutY="331.0" text="User Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
       <TextField fx:id="txtfname" layoutX="85.0" layoutY="138.0" promptText="First name" />
       <TextField fx:id="txtlname" layoutX="85.0" layoutY="192.0" promptText="Last Name" />
       <TextField fx:id="txtidnumber" layoutX="85.0" layoutY="245.0" promptText="ID Number" />
       <TextField fx:id="txtemail" layoutX="85.0" layoutY="293.0" promptText="abc@gamil.com" />
+      <TextField fx:id="txtusername" layoutX="81.0" layoutY="352.0" prefHeight="25.0" prefWidth="158.0" promptText="User Name" />
       <PasswordField fx:id="txtpassword" layoutX="85.0" layoutY="405.0" promptText="Password" />
-      <PasswordField fx:id="txtconfirmpassword" layoutX="85.0" layoutY="462.0" promptText="Confirm Password" />
+      <PasswordField fx:id="txtconfirmpassword" layoutX="85.0" layoutY="462.0" onAction="#txtconfirmpasswordOnaction" promptText="Confirm Password" />
       <Label layoutX="54.0" layoutY="383.0" text="Password">
          <font>
             <Font size="14.0" />
@@ -73,11 +80,15 @@
       </Button>
       <Label fx:id="lblnotmaching1" layoutX="169.0" layoutY="433.0" text="Pasword is not matching" textFill="#f80d0d" />
       <Label fx:id="lblnotmaching2" layoutX="170.0" layoutY="491.0" text="Pasword is not matching" textFill="#d32020" />
-      <Label layoutX="54.0" layoutY="331.0" text="User Name">
+      <Label fx:id="lbluserid" layoutX="26.0" layoutY="91.0" style="-fx-border-color: blue; -fx-background-color: gold;" text="User Id">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <TextField fx:id="txtusername" layoutX="81.0" layoutY="352.0" prefHeight="25.0" prefWidth="158.0" promptText="User Name" />
+      <ImageView fitHeight="59.0" fitWidth="59.0" layoutX="259.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Image/L.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

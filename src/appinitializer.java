@@ -21,7 +21,7 @@ public class appinitializer extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Loging Page");
         primaryStage.centerOnScreen();
-        Image img = new Image("Image/car.jpg");
+        Image img = new Image("Image/appI.jpg");
         primaryStage.getIcons().add(img);
         primaryStage.show();
 
