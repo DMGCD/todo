@@ -2,6 +2,8 @@ package controller;
 
 import TM.todoTM;
 import db.DBconnection;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +23,7 @@ public class listformcontroller {
 
     public AnchorPane root;
     public Label lblhi;
+    public String selectId =null;
     public Label lbluserid;
     public Pane subroot;
     public TextField txtdescription;
@@ -36,11 +39,36 @@ public class listformcontroller {
         lbluserid.setText(logingformcontroller.userIdlbl);
         subroot.setVisible(false);
          listload();
+         dulDisable(true);
+         lsttodo.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<todoTM>() {
+             @Override
+             public void changed(ObservableValue<? extends todoTM> observable, todoTM oldValue, todoTM newValue) {
+                 todoTM selectedItem = lsttodo.getSelectionModel().getSelectedItem();
+
+                 selectId =selectedItem.getId();
+
+
+                 dulDisable(false);
+                 subroot.setVisible(false);
+                 txtdAndU.requestFocus();
+
+                 if(selectedItem == null){
+                     return;
+                 }
+                 txtdAndU.setText(selectedItem.getDescription());
+                 txtdAndU.requestFocus();
+
+
+             }
+         });
+
     }
 
 
     public void btnaddlistOnaction() {
      addtodolistNew();
+     dulDisable(true);
+
 
 
     }
@@ -88,6 +116,20 @@ public class listformcontroller {
 
 
     public void btnUpdateOnaction(ActionEvent actionEvent) {
+        Connection connection = DBconnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("update todo set description=? where id =? ");
+            preparedStatement.setObject(1,txtdAndU.getText());
+            preparedStatement.setObject(2,selectId);
+            preparedStatement.executeUpdate();
+            listload();
+            txtdAndU.clear();
+            dulDisable(true);
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
@@ -95,6 +137,8 @@ public class listformcontroller {
 
 
     public void btndeleteOnAction(ActionEvent actionEvent) {
+
+
 
 
     }
@@ -126,8 +170,13 @@ public class listformcontroller {
 
 
     public void btnAddnewTodoOnacction(ActionEvent actionEvent) {
+        lsttodo.getSelectionModel().clearSelection();
         subroot.setVisible(true);
         txtdescription.requestFocus();
+        dulDisable(true);
+        txtdAndU.clear();
+
+
 
 
     }
@@ -187,5 +236,12 @@ public class listformcontroller {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void dulDisable(boolean x){
+
+        btndelete.setDisable(x);
+        btnupdate.setDisable(x);
+        txtdAndU.setDisable(x);
     }
 }
