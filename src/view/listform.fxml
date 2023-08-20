@@ -10,7 +10,7 @@
 
 <AnchorPane fx:id="root" prefHeight="565.0" prefWidth="614.0" style="-fx-background-color: lavender;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.listformcontroller">
    <children>
-      <ListView layoutX="14.0" layoutY="119.0" prefHeight="377.0" prefWidth="210.0" style="-fx-border-color: blue;" />
+      <ListView fx:id="lsttodo" layoutX="14.0" layoutY="119.0" prefHeight="377.0" prefWidth="210.0" style="-fx-border-color: blue;" />
       <Pane fx:id="subroot" layoutX="232.0" layoutY="365.0" prefHeight="131.0" prefWidth="371.0" style="-fx-border-color: blue;">
          <children>
             <TextField fx:id="txtdescription" layoutX="86.0" layoutY="43.0" onAction="#txtdescriptionOnaction" prefHeight="25.0" prefWidth="238.0" promptText="Description" />
@@ -79,5 +79,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
+
    </children>
 </AnchorPane>

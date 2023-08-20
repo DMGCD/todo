@@ -1,6 +1,8 @@
 package controller;
 
+import TM.todoTM;
 import db.DBconnection;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.sql.*;
@@ -26,6 +27,7 @@ public class listformcontroller {
     public TextField txtdAndU;
     public Button btnupdate;
     public Button btndelete;
+    public ListView<todoTM>lsttodo;
 
 
     public void initialize(){
@@ -33,10 +35,11 @@ public class listformcontroller {
         lblhi.setText("Hi "+logingformcontroller.usernamelbl+" Welcome To Todo List!");
         lbluserid.setText(logingformcontroller.userIdlbl);
         subroot.setVisible(false);
+         listload();
     }
 
 
-    public void btnaddlistOnaction(ActionEvent actionEvent) {
+    public void btnaddlistOnaction() {
      addtodolistNew();
 
 
@@ -92,7 +95,7 @@ public class listformcontroller {
 
 
     public void btndeleteOnAction(ActionEvent actionEvent) {
-addtodolistNew();
+
 
     }
 
@@ -116,6 +119,7 @@ addtodolistNew();
 
         subroot.setVisible(false);
         txtdescription.clear();
+        listload();
     }
 
 
@@ -152,6 +156,36 @@ addtodolistNew();
     }
 
     public void txtdescriptionOnaction(ActionEvent actionEvent) {
+        addtodolistNew();
+        listload();
+
+    }
+
+
+
+
+    public void listload() throws RuntimeException {
+
+        ObservableList<todoTM> items = lsttodo.getItems();
+        items.clear();
+        Connection connection = DBconnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select *from todo where userid=?");
+            preparedStatement.setObject(1,lbluserid.getText());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+
+                String id = resultSet.getString(1);
+                String userid =resultSet.getString(2);
+                String description=resultSet.getString(3);
+                todoTM TODOTmobj = new todoTM(id,description,userid);
+                items.add(TODOTmobj);
+
+            }
+            lsttodo.refresh();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
