@@ -14,8 +14,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class logingformcontroller {
+    public static String usernamelbl;
+    public static String userIdlbl;
 
     public TextField txtusername;
     public PasswordField txtpassword;
@@ -35,20 +40,55 @@ public class logingformcontroller {
 
     }
 
-    public void btnlogingOnAction(ActionEvent actionEvent) throws IOException {
-        // is the  check password and username are correct it canbee navigate  list form
-        logintolist();
+    public void btnlogingOnAction(ActionEvent actionEvent)  {
+        login();
 
 
 
     }
-    public void logintolist() throws IOException {
 
-        Parent parent =FXMLLoader.load(this.getClass().getResource("../view/listform.fxml"));
-        Scene scene = new Scene(parent);
-        Stage stage = (Stage) root.getScene().getWindow();
-        stage.setTitle("Todo List");
-        stage.setScene(scene);
-        stage.centerOnScreen();
+
+    public void txtpasswordOnAction(ActionEvent actionEvent) {
+        login();
     }
+
+    public void  login(){
+
+        String username = txtusername.getText();
+        String password = txtpassword.getText();
+        Connection connection = DBconnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select *from user where username=? and password =?");
+            preparedStatement.setObject(1,username);
+            preparedStatement.setObject(2,password);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            boolean here = resultSet.next();
+            if(here){
+               userIdlbl= resultSet.getString(1);
+                usernamelbl=resultSet.getString(6);
+
+                Parent parent=FXMLLoader.load(this.getClass().getResource("../view/listform.fxml"));
+                Scene scene = new Scene(parent);
+                Stage stage = (Stage) root.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("List Todo");
+                stage.centerOnScreen();
+            }
+            else{
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "CHECK PASSWORD AND USER NAME ARE CORRECT!");
+                alert.showAndWait();
+
+                txtusername.clear();
+                txtpassword.clear();
+                txtusername.requestFocus();
+            }
+        } catch (SQLException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+
+    }
+
 }
