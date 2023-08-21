@@ -137,9 +137,17 @@ public class listformcontroller {
 
 
     public void btndeleteOnAction(ActionEvent actionEvent) {
-
-
-
+        Connection connection = DBconnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from todo where id=? ");
+            preparedStatement.setObject(1,selectId);
+            preparedStatement.executeUpdate();
+            listload();
+            txtdAndU.clear();
+            dulDisable(true);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
